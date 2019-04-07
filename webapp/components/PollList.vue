@@ -4,7 +4,7 @@
       <a-list-item-meta
         description="Ant Design, a design language for background applications, is refined by Ant UED Team"
       >
-        <a slot="title" href="https://vue.ant.design/">{{ item.question }}</a>
+        <a slot="title" :href="`/polls/${item.id}`">{{ item.question }}</a>
         <a-avatar slot="avatar" src />
       </a-list-item-meta>
     </a-list-item>
