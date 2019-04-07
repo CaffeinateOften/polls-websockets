@@ -22,10 +22,11 @@ export class ActionsGateway {
   constructor(private readonly appService: AppService) {}
 
   @SubscribeMessage('action')
-  async handleAction(client: any, action: any): Promise<Object> {
-    log('ACTION', action)
+  async handleAction(client: any, actionData: any): Promise<Object> {
+    log('ACTION', actionData)
 
-    const mutations = await this.appService.dispatchAction(action.name)
+    const mutations = await this.appService.dispatchAction(actionData.name, actionData.payload)
+
     return {
       event: 'mutations',
       data: mutations,

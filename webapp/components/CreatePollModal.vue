@@ -40,11 +40,10 @@ export default {
       const questionText = this.$refs['poll-form'].question
       if (questionText.length > 0) {
         this.showError = false
-        this.$ws.emit(
-          'action',
-          { name: 'createPoll' },
-          { poll: { question: questionText } }
-        )
+        this.$ws.emit('action', {
+          name: 'createPoll',
+          payload: { question: questionText }
+        })
         setTimeout(() => {
           this.visible = false
           this.confirmLoading = false
