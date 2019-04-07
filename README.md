@@ -11,3 +11,4 @@ Playing w/ websockets and vuex mutations
 - Consider looking at other state management libraries and reflect on Declarative state transformations VS imperative (mutations)
 - Review applications of event-sourcing and see if I can do anything cool with the history of committed mutations
 - build out more of the poll platform just to demonstrate sync'ing of state
+- explore scenario where any client can retrieve dispatched actions and respond with emitted mutations to any other connected client
