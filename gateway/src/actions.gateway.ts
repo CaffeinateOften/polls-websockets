@@ -26,6 +26,7 @@ export class ActionsGateway implements OnGatewayConnection {
 
   handleConnection(client: any, ...args: any[]) {
     console.log('client connected!')
+    client.emit('state', this.appService.getState())
   }
 
   @SubscribeMessage('action')

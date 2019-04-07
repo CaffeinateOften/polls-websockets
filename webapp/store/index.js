@@ -18,15 +18,6 @@ export const getDefaultState = () => {
           question: 'What is?'
         },
         ids: [0, 1, 2]
-      },
-      loaded: {
-        polls: false
-      },
-      loading: {
-        polls: false
-      },
-      error: {
-        polls: false
       }
     }
   }
@@ -35,6 +26,9 @@ export const getDefaultState = () => {
 export const state = getDefaultState
 
 export const mutations = {
+  setState(state, newState) {
+    Vue.set(state, 'entities', newState.entities)
+  },
   createPoll(state, payload) {
     const newPoll = {
       id: uuidv4(),

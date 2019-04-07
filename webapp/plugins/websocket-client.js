@@ -14,6 +14,9 @@ function log(title, obj) {
 const ws = io('http://localhost:4001')
 
 export default (context) => {
+  ws.on('state', (state) => {
+    context.store.commit('setState', state)
+  })
   ws.on('mutations', (mutations) => {
     // eslint-disable-next-line
     console.log(typeof mutations, JSON.stringify(mutations, null, 2))
