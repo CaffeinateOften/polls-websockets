@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 console.log(' actions.gateway.ts was required... ')
 
 import storeConfig from './classes/entity-store';
+import { Server } from 'tls';
 const Vue = require('vue');
 const Vuex = require('vuex');
 Vue.use(Vuex);
@@ -18,19 +19,20 @@ function log(title, obj) {
   );
 }
 @WebSocketGateway(4001)
-export class ActionsGateway {
+export class ActionsGateway implements OnGatewayConnection {
   constructor(private readonly appService: AppService) {}
 
+  @WebSocketServer() server;
+
+  handleConnection(client: any, ...args: any[]) {
+    console.log('client connected!')
+  }
+
   @SubscribeMessage('action')
-  async handleAction(client: any, actionData: any): Promise<Object> {
+  async handleAction(client: any, actionData: any): Promise<void> {
     log('ACTION', actionData)
-
     const mutations = await this.appService.dispatchAction(actionData.name, actionData.payload)
-
-    return {
-      event: 'mutations',
-      data: mutations,
-    };
+    this.server.emit('mutations', mutations)
   }
 
   @SubscribeMessage('echo')
