@@ -6,10 +6,20 @@ export const getDefaultState = () => {
   return {
     entities: {
       polls: {
-        ids: []
-        // commentIds: []
+        0: {
+          id: 0,
+          question: 'What is a question?'
+        },
+        1: {
+          id: 1,
+          question: 'What is a poll?'
+        },
+        2: {
+          id: 2,
+          question: 'What is?'
+        },
+        ids: [0, 1, 2]
       },
-      // comments: { ids: [] }
       loaded: {
         polls: false
       },
