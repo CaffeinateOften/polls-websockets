@@ -4,7 +4,7 @@
       <a-list-item-meta
         description="Ant Design, a design language for background applications, is refined by Ant UED Team"
       >
-        <a slot="title" :href="`/polls/${item.id}`">{{ item.question }}</a>
+        <nuxt-link slot="title" :to="`/polls/${item.id}`">{{ item.question }}</nuxt-link>
         <a-avatar slot="avatar" src />
       </a-list-item-meta>
     </a-list-item>

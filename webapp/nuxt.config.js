@@ -31,7 +31,7 @@ module.exports = {
    */
   plugins: [
     '@/plugins/antd-ui',
-    { src: '@/plugins/websocket-client', ssr: false }
+    { src: '@/plugins/websocket-client', ssr: true }
   ],
 
   /*

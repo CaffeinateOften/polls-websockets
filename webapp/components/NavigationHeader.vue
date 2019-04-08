@@ -6,7 +6,7 @@
           <a-button ghost icon="home" type="primary" @click="scrollToTop" />
         </nuxt-link>
       </a-col>
-      <a-col :span="18">
+      <a-col :span="16">
         <search-bar />
       </a-col>
       <a-col :span="4">

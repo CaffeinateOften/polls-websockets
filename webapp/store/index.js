@@ -1,33 +1,19 @@
 import Vue from 'vue'
 const uuidv4 = require('uuid/v4')
 
-export const getDefaultState = () => {
-  return {
-    entities: {
-      polls: {
-        0: {
-          id: 0,
-          question: 'What is a question?'
-        },
-        1: {
-          id: 1,
-          question: 'What is a poll?'
-        },
-        2: {
-          id: 2,
-          question: 'What is?'
-        },
-        ids: [0, 1, 2]
-      }
+export const state = () => ({
+  entities: {
+    polls: {
+      ids: []
     }
   }
-}
-
-export const state = getDefaultState
+})
 
 export const mutations = {
   setState(state, newState) {
-    Vue.set(state, 'entities', newState.entities)
+    // eslint-disable-next-line
+    console.log('NewState:', JSON.stringify(newState, null, 2))
+    state.entities.polls = Object.assign({}, state.entities.polls, newState.entities.polls)
   },
   createPoll(state, payload) {
     const newPoll = {
@@ -39,7 +25,10 @@ export const mutations = {
   }
 }
 
+export const getters = {}
+
 export default {
   state,
-  mutations
+  mutations,
+  getters
 }
