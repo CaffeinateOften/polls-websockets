@@ -34,6 +34,7 @@ export default {
   methods: {
     showModal() {
       this.visible = true
+      this.$nextTick(() => this.$refs['poll-form'].$refs['question-input'].focus())
     },
     handleOk(e) {
       this.confirmLoading = true
@@ -44,12 +45,12 @@ export default {
           name: 'createPoll',
           payload: { question: questionText }
         })
-        setTimeout(() => {
-          this.visible = false
-          this.confirmLoading = false
-        }, 300)
+        this.visible = false
+        this.confirmLoading = false
+        this.$refs['poll-form'].question = '' // probably bad practice to use $refs everywhere, so dont if you can avoid
       } else {
         this.showError = true
+        this.$nextTick(() => this.$refs['poll-form'].$refs['question-input'].focus())
       }
       this.confirmLoading = false
     },
