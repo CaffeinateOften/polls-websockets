@@ -2,7 +2,7 @@
   <div>
     <a-row>
       <a-col :span="24">
-        <h1>{{ poll.question }}</h1>
+        <h1 v-if="poll">{{ poll.question }}</h1>
       </a-col>
     </a-row>
   </div>

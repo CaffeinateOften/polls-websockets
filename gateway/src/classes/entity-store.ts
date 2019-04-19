@@ -1,22 +1,18 @@
 const uuidv4 = require('uuid/v4');
 const Vue = require('vue');
 
-export const getDefaultState = () => {
-  return {
+export const state = () => ({
     entities: {
       polls: {
         ids: [],
       },
-    },
-  };
-};
-
-export const state = getDefaultState();
+    }
+})
 
 export const mutations = {
   createPoll(state, payload) {
     const newPoll = {
-      id: uuidv4(),
+      id: payload.id,
       question: payload.question,
     };
     Vue.set(state.entities.polls, newPoll.id, newPoll);
@@ -38,9 +34,11 @@ export const actions = {
       });
       originalCommit.apply(null, arguments);
     };
-    
+
+    const id = uuidv4()
+
     // commit state mutations
-    commit('createPoll', { question: payload.question });
+    commit('createPoll', { question: payload.question, id: id});
 
     // send committed mutations back to action dispatcher
     mutationsCallback(mutations);
