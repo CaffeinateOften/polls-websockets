@@ -3,6 +3,7 @@ Playing w/ websockets and vuex mutations
 
 # Things that could be done next:
 
+- upon visiting an /admin/:id page, add this to the client's "visited" admin pages. Since all admin pages will be open to edit poll, but safe behind hard to predict URL, I could help user not lose their admin pages by keeping track of which admin pages they accessed
 - Strongly type everything
 - Have client retrieve not only the current server state on connection, but also the possible mutations that could be committed against state
 - Show possible store actions as documentation on some endpoint (telling client 'these are the actions you can dispatch' --> these will be the mutation commits/payloads that would be returned)
