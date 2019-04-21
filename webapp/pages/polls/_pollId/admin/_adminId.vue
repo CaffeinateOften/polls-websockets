@@ -2,7 +2,7 @@
   <div>
     <a-row>
       <a-col :span="24">
-        <h1 v-if="poll">{{ poll.question }}</h1>
+        {{ $route.params }}
       </a-col>
     </a-row>
   </div>
@@ -21,7 +21,11 @@ export default {
       return this.entities.polls[this.pollId]
     }
   },
-  methods: {}
+  methods: {},
+  beforeMount() {
+    // eslint-disable-next-line
+    console.log(this.$route.params)
+  }
 }
 </script>
 <style></style>

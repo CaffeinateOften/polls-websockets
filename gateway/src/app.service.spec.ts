@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppService } from './app.service';
-import { getDefaultState } from './classes/entity-store';
+import { state } from './classes/entity-store';
 
 describe('AppService', () => {
   let appService: AppService;
@@ -13,7 +13,7 @@ describe('AppService', () => {
 
     appService = app.get<AppService>(AppService);
 
-    defaultState = getDefaultState();
+    defaultState = state();
   });
 
   it('should return current application state', () => {

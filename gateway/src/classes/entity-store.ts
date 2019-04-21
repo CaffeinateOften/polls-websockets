@@ -1,6 +1,14 @@
 const uuidv4 = require('uuid/v4');
 const Vue = require('vue');
 
+// can i even do this lol
+const AdminVue = require('vue')
+const AdminVuex = require('vuex')
+const AdminStoreConfig = require('./admin-store')
+AdminVue.use(AdminVuex)
+export const adminStore = new AdminVuex.Store(AdminStoreConfig)
+// dont do this at home kidz
+
 export const state = () => ({
     entities: {
       polls: {
@@ -39,6 +47,7 @@ export const actions = {
 
     // commit state mutations
     commit('createPoll', { question: payload.question, id: id});
+    adminStore.dispatch('createPoll', { id: id })
 
     // send committed mutations back to action dispatcher
     mutationsCallback(mutations);
