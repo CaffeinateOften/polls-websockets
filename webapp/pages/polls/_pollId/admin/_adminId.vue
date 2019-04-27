@@ -1,31 +1,55 @@
 <template>
   <div>
     <a-row>
-      <a-col :span="24">
-        <div v-if="load">
-          <div v-if="valid">
-            <a-row>
-              <a-col>
-                <editable-table :poll="poll" @question-update="dispatchQuestionUpdate"/>
-                {{ poll.question }}
-              </a-col>
-            </a-row>
+      <a-card>
+        <a-col :span="24">
+          <div v-if="load">
+            <div v-if="valid">
+              <a-row>
+                <a-col :span="12">
+                  <a-row>
+                    <a-col :span="12">
+                      <h1>Hello, Admin</h1>
+                    </a-col>
+                    <a-col :span="12"></a-col>
+                  </a-row>
+                </a-col>
+              </a-row>
+              <a-row>
+                <a-col :span="12">
+                  <editable-field
+                    fieldName="question"
+                    :text="poll.question"
+                    @update="dispatchPollUpdate"
+                  />
+                </a-col>
+              </a-row>
+            </div>
+            <div v-else>Not a valid admin id</div>
           </div>
-          <div v-else>Not a valid admin id</div>
-        </div>
-        <div v-else>Loading...</div>
-      </a-col>
+          <div v-else>Loading...</div>
+        </a-col>
+      </a-card>
     </a-row>
+    <div :style="{paddingTop: '20px'}"/>
+
+    <a-card>
+      <a-row>
+        <nuxt-link :to="`/polls/${$route.params.pollId}`" target="_blank">
+          <a-button type="primary" ghost>open link to poll...</a-button>
+        </nuxt-link>
+      </a-row>
+    </a-card>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import superagent from 'superagent'
-import EditableTable from '~/components/EditableTable'
+import EditableField from '~/components/EditableField'
 
 export default {
   components: {
-    EditableTable
+    EditableField
   },
   data() {
     return {
@@ -40,13 +64,20 @@ export default {
     }
   },
   methods: {
-    dispatchQuestionUpdate(value) {
+    dispatchPollUpdate(fieldName, value) {
+      const payload = {}
+      const name = 'updatePoll'
+
       const id = this.$route.params.pollId
       const adminId = this.$route.params.adminId
 
+      payload.id = id
+      payload.adminId = adminId
+      payload[fieldName] = value
+
       this.$ws.emit('action', {
-        name: 'updatePoll',
-        payload: { id: id, adminId: adminId, question: value }
+        name: name,
+        payload: payload
       })
     }
   },

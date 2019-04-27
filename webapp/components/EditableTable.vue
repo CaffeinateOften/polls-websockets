@@ -36,7 +36,7 @@ export default {
       ],
       columns: [
         {
-          title: 'Poll Settings',
+          title: 'Poll Question',
           dataIndex: 'question',
           width: '30%',
           scopedSlots: { customRender: 'name' }
