@@ -17,15 +17,20 @@ export class AppService {
   getState(): Object {
     return this.store.state
   }
-  async dispatchAction(action: string, payload?: any ): Promise<Array<any>> {
+  async dispatchAction(action: string, payload?: any ): Promise<any> {
     const modifiedPayload = payload || {}
     let committedMutations = []
-    const mutationsCallback = (mutations) => {
-      committedMutations = mutations
+    let id
+    let adminId
+    const mutationsCallback = (callbackData) => {
+      committedMutations = callbackData.mutations
+      id = callbackData.id,
+      adminId = callbackData.adminId
     }
     modifiedPayload.mutationsCallback = mutationsCallback
     await this.store.dispatch(action, modifiedPayload)
-    return committedMutations
+
+    return { mutations: committedMutations, id: id, adminId: adminId }
   }
   
   isValidAdminId(id: string, adminId: string): boolean {

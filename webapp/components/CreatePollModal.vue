@@ -47,7 +47,7 @@ export default {
         })
         this.visible = false
         this.confirmLoading = false
-        this.$refs['poll-form'].question = '' // probably bad practice to use $refs everywhere, so dont if you can avoid
+        this.$refs['poll-form'].question = ''
       } else {
         this.showError = true
         this.$nextTick(() => this.$refs['poll-form'].$refs['question-input'].focus())

@@ -18,12 +18,13 @@ export default (context) => {
     context.store.commit('setState', state)
   })
   ws.on('mutations', (mutations) => {
-    // eslint-disable-next-line
-    console.log(typeof mutations, JSON.stringify(mutations, null, 2))
     mutations.map((mutation) => {
       log('MUTATION', mutation)
       context.store.commit(mutation.name, mutation.payload)
     })
+  })
+  ws.on('redirect', (data) => {
+    context.app.router.push({ path: data.path })
   })
 }
 

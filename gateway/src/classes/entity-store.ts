@@ -49,8 +49,14 @@ export const actions = {
     commit('createPoll', { question: payload.question, id: id});
     adminStore.dispatch('createPoll', { id: id })
 
+    const callbackData = {
+      id: id,
+      mutations: mutations,
+      adminId: adminStore.state.entities.polls[id].adminId
+    }
+
     // send committed mutations back to action dispatcher
-    mutationsCallback(mutations);
+    mutationsCallback(callbackData);
   },
 };
 
