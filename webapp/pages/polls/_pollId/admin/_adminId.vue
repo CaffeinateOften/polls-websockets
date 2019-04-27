@@ -4,15 +4,16 @@
       <a-col :span="24">
         <div v-if="load">
           <div v-if="valid">
-            {{ poll }}
+            <a-row>
+              <a-col>
+                <editable-table :poll="poll" @question-update="dispatchQuestionUpdate"/>
+                {{ poll.question }}
+              </a-col>
+            </a-row>
           </div>
-          <div v-else>
-            Not a valid admin id
-          </div>
+          <div v-else>Not a valid admin id</div>
         </div>
-        <div v-else>
-          Loading...
-        </div>
+        <div v-else>Loading...</div>
       </a-col>
     </a-row>
   </div>
@@ -20,8 +21,12 @@
 <script>
 import { mapState } from 'vuex'
 import superagent from 'superagent'
+import EditableTable from '~/components/EditableTable'
 
 export default {
+  components: {
+    EditableTable
+  },
   data() {
     return {
       valid: false,
@@ -34,10 +39,22 @@ export default {
       return this.entities.polls[this.$route.params.pollId]
     }
   },
-  methods: {},
+  methods: {
+    dispatchQuestionUpdate(value) {
+      const id = this.$route.params.pollId
+      const adminId = this.$route.params.adminId
+
+      this.$ws.emit('action', {
+        name: 'updatePoll',
+        payload: { id: id, adminId: adminId, question: value }
+      })
+    }
+  },
   async beforeMount() {
     const { pollId, adminId } = this.$route.params
-    const response = await superagent.get(`http://localhost:3001/polls/${pollId}/admin/${adminId}`)
+    const response = await superagent.get(
+      `http://localhost:3001/polls/${pollId}/admin/${adminId}`
+    )
     const isValid = response.body.validAdminId
     // eslint-disable-next-line
     console.log(isValid)

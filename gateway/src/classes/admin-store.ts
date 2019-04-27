@@ -30,7 +30,7 @@ export const actions = {
   async createPoll({ state, getters, commit, dispatch }, payload) {
     const adminId = uuidv4()
     const id = payload.id
-    commit('createPoll', { id: payload.id, adminId: adminId});
+    commit('createPoll', { id: id, adminId: adminId});
   },
 };
 

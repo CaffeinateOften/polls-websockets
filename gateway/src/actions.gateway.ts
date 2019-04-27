@@ -32,14 +32,13 @@ export class ActionsGateway implements OnGatewayConnection {
   @SubscribeMessage('action')
   async handleAction(client: any, actionData: any): Promise<void> {
     log('ACTION', actionData)
-    const dataAfterStateMutations = await this.appService.dispatchAction(actionData.name, actionData.payload)
-    const { mutations, id, adminId } = dataAfterStateMutations
-    this.server.emit('mutations', mutations)
-
-    if(actionData.name === 'createPoll'){
-      client.emit('redirect', { path: `/polls/${id}/admin/${adminId}`})
+    const events = await this.appService.dispatchAction(actionData.name, actionData.payload)
+    this.server.emit('mutations', events.mutations)
+    if(events.clientOnly){
+      events.clientOnly.map(event => {
+        client.emit(event.name, event.payload)
+      })
     }
-
   }
 
   @SubscribeMessage('echo')

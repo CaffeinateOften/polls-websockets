@@ -21,6 +21,14 @@ export const mutations = {
     }
     Vue.set(state.entities.polls, newPoll.id, newPoll)
     state.entities.polls.ids.push(newPoll.id)
+  },
+  updatePoll(state, payload) {
+    const id = payload.id
+    Object.keys(payload).map((key) => {
+      if (key !== 'id') {
+        state.entities.polls[id][key] = payload[key]
+      }
+    })
   }
 }
 

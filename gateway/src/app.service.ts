@@ -23,6 +23,7 @@ export class AppService {
     let id
     let adminId
     const mutationsCallback = (callbackData) => {
+      // Can i use vuex.subscribe instead of doing this hack?
       committedMutations = callbackData.mutations
       id = callbackData.id,
       adminId = callbackData.adminId
@@ -30,7 +31,20 @@ export class AppService {
     modifiedPayload.mutationsCallback = mutationsCallback
     await this.store.dispatch(action, modifiedPayload)
 
-    return { mutations: committedMutations, id: id, adminId: adminId }
+    const events: any = {
+      mutations: committedMutations // will emit to all connected clients
+    }
+
+    if(action === 'createPoll'){
+      events.clientOnly = [         // will only emit to the client that dispatched the action we just completed
+        {
+          name: 'redirect',
+          payload: { path: `/polls/${id}/admin/${adminId}`}
+        }
+      ]
+    }
+
+    return events
   }
   
   isValidAdminId(id: string, adminId: string): boolean {

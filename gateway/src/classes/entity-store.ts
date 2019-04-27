@@ -26,12 +26,20 @@ export const mutations = {
     Vue.set(state.entities.polls, newPoll.id, newPoll);
     state.entities.polls.ids.push(newPoll.id);
   },
+  updatePoll(state, payload){
+    const id = payload.id;
+    Object.keys(payload).map(key => {
+      if(key !== 'id'){
+        state.entities.polls[id][key] = payload[key]
+      }
+    })
+  }
 };
 
 export const actions = {
   async createPoll({ state, getters, commit, dispatch }, payload) {
 
-    // track mutations that are committed during this dispatched action
+    // Track mutations that are committed during this dispatched action
     const mutationsCallback = payload.mutationsCallback;
     let mutations = [];
     const originalCommit = commit;
@@ -45,7 +53,7 @@ export const actions = {
 
     const id = uuidv4()
 
-    // commit state mutations
+    // Commit state mutations
     commit('createPoll', { question: payload.question, id: id});
     adminStore.dispatch('createPoll', { id: id })
 
@@ -55,9 +63,30 @@ export const actions = {
       adminId: adminStore.state.entities.polls[id].adminId
     }
 
-    // send committed mutations back to action dispatcher
+    // Send committed mutations back to action dispatcher
     mutationsCallback(callbackData);
   },
+  async updatePoll({ state, getters, commit, dispatch }, payload) {
+
+    // Can Vuex.subscribe replace this hack?
+    const mutationsCallback = payload.mutationsCallback;
+    let mutations = [];
+    const originalCommit = commit;
+    commit = function() {
+      mutations.push({
+        name: arguments[0],
+        payload: arguments[1]
+      });
+      originalCommit.apply(null, arguments)
+    };
+
+    const { id, adminId, question } = payload
+    if(adminStore.state.entities.polls[id].adminId === adminId){
+      commit('updatePoll', { id: id, question: question })
+    }
+
+    mutationsCallback({ mutations: mutations })
+  }
 };
 
 export default {
