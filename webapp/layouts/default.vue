@@ -15,7 +15,7 @@
         </a-col>
       </a-row>
     </a-layout-content>
-    <a-layout-footer>Developed by: Chris Dillinger</a-layout-footer>
+    <a-layout-footer> Developer: <a target="_blank" href="https://twitter.com/caffeinateoften"><a-icon type="twitter" /> @CaffeinateOften </a></a-layout-footer>
   </a-layout>
 </template>
 <script>
@@ -29,6 +29,11 @@ export default {
 </script>
 
 <style>
+
+a, a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+}
+
 .ant-layout-header {
   padding-left: 0px;
   padding-right: 0px;

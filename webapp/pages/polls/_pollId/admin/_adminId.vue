@@ -32,7 +32,6 @@
       </a-card>
     </a-row>
     <div :style="{paddingTop: '20px'}"/>
-
     <a-card>
       <a-row>
         <nuxt-link :to="`/polls/${$route.params.pollId}`" target="_blank">
