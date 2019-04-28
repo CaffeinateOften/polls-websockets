@@ -7,17 +7,26 @@
             <a-row :gutter="16">
               <a-col :span="24">
                 <a-row :gutter="4">
-                  <a-col :span="6">
+                  <a-col :span="8">
                     <a-row>
                       <a-col :span="24">
                         <a-card>
+                          <a-input
+                            ref="url-input"
+                            @click="copyPollUrl"
+                            class="share-link"
+                            :value="`/polls/${$route.params.pollId}`"
+                          >
+                            <a-icon slot="suffix" type="copy"/>
+                          </a-input>
+                          <div style="padding-top: 4px;"/>
                           <nuxt-link :to="`/polls/${$route.params.pollId}`" target="_blank">
-                            <a-button type="primary" ghost>open link to poll...</a-button>
+                            <a-button style="width: 100%;" type="primary" ghost>open poll...</a-button>
                           </nuxt-link>
                         </a-card>
                       </a-col>
                     </a-row>
-                    <div style="padding-top: 4px" />
+                    <div style="padding-top: 4px"/>
                     <a-row>
                       <a-col :span="24">
                         <admin-side-menu/>
@@ -70,6 +79,18 @@ export default {
     }
   },
   methods: {
+    copyPollUrl() {
+      // eslint-disable-next-line
+      this.$refs['url-input'].$el.firstChild.setSelectionRange(
+        0,
+        this.$refs['url-input'].value.length
+      )
+      const id = this.$route.params.pollId
+      this.$notification.info({
+        message: 'URL copied to clipboard!',
+        description: `http://localhost:3000/polls/${id}/`
+      })
+    },
     dispatchPollUpdate(fieldName, value) {
       const payload = {}
       const name = 'updatePoll'
@@ -100,4 +121,8 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+.share-link {
+  font-size: 10px;
+}
+</style>
