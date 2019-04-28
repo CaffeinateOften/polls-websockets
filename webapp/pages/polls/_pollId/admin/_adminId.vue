@@ -1,54 +1,61 @@
 <template>
   <div>
     <a-row>
-      <a-card>
-        <a-col :span="24">
-          <div v-if="load">
-            <div v-if="valid">
-              <a-row>
-                <a-col :span="12">
-                  <a-row>
-                    <a-col :span="12">
+      <a-col :span="24">
+        <div v-if="load">
+          <div v-if="valid">
+            <a-row :gutter="16">
+              <a-col :span="24">
+                <a-row :gutter="4">
+                  <a-col :span="6">
+                    <a-row>
+                      <a-col :span="24">
+                        <a-card>
+                          <nuxt-link :to="`/polls/${$route.params.pollId}`" target="_blank">
+                            <a-button type="primary" ghost>open link to poll...</a-button>
+                          </nuxt-link>
+                        </a-card>
+                      </a-col>
+                    </a-row>
+                    <div style="padding-top: 4px" />
+                    <a-row>
+                      <a-col :span="24">
+                        <admin-side-menu/>
+                      </a-col>
+                    </a-row>
+                  </a-col>
+                  <a-col :span="12">
+                    <a-card>
                       <h1>Hello, Admin</h1>
-                    </a-col>
-                    <a-col :span="12"></a-col>
-                  </a-row>
-                </a-col>
-              </a-row>
-              <a-row>
-                <a-col :span="12">
-                  <editable-field
-                    fieldName="question"
-                    :text="poll.question"
-                    @update="dispatchPollUpdate"
-                  />
-                </a-col>
-              </a-row>
-            </div>
-            <div v-else>Not a valid admin id</div>
+                      <editable-field
+                        fieldName="question"
+                        :text="poll.question"
+                        @update="dispatchPollUpdate"
+                      />
+                    </a-card>
+                  </a-col>
+                </a-row>
+              </a-col>
+            </a-row>
           </div>
-          <div v-else>Loading...</div>
-        </a-col>
-      </a-card>
+          <div v-else>Not a valid admin id</div>
+        </div>
+        <div v-else>Loading...</div>
+      </a-col>
     </a-row>
-    <div :style="{paddingTop: '20px'}"/>
-    <a-card>
-      <a-row>
-        <nuxt-link :to="`/polls/${$route.params.pollId}`" target="_blank">
-          <a-button type="primary" ghost>open link to poll...</a-button>
-        </nuxt-link>
-      </a-row>
-    </a-card>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import superagent from 'superagent'
 import EditableField from '~/components/EditableField'
+import AdminSideMenu from '~/components/AdminSideMenu'
 
 export default {
+  layout: 'wider-content',
   components: {
-    EditableField
+    EditableField,
+    AdminSideMenu
   },
   data() {
     return {
