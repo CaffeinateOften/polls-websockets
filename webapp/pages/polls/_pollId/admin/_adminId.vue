@@ -15,7 +15,7 @@
                             ref="url-input"
                             @click="copyPollUrl"
                             class="share-link"
-                            :value="`/polls/${$route.params.pollId}`"
+                            :value="`http://localhost:3000/polls/${$route.params.pollId}`"
                           >
                             <a-icon slot="suffix" type="copy"/>
                           </a-input>
@@ -87,10 +87,14 @@ export default {
   methods: {
     copyPollUrl() {
       // eslint-disable-next-line
+      this.$refs['url-input'].focus()
       this.$refs['url-input'].$el.firstChild.setSelectionRange(
         0,
         this.$refs['url-input'].value.length
       )
+
+      document.execCommand('copy')
+
       const id = this.$route.params.pollId
       this.$notification.info({
         message: 'URL copied to clipboard!',

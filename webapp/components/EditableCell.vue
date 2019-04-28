@@ -27,8 +27,10 @@ export default {
       this.value = value
     },
     check() {
-      this.editable = false
-      this.$emit('change', this.value)
+      if (this.value.length > 0) {
+        this.editable = false
+        this.$emit('change', this.value)
+      }
     },
     edit() {
       this.editable = true

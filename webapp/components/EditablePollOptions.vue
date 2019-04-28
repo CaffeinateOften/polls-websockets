@@ -25,7 +25,8 @@
         </a-popconfirm>
       </template>
     </a-table>
-    <a-button class="editable-add-btn" @click="handleAdd">+</a-button>
+
+    <a-button style="width: 100%; margin-top: 4px;" class="editable-add-btn" @click="handleAdd">+</a-button>
   </div>
 </template>
 <script>
