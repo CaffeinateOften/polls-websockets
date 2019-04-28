@@ -33,7 +33,7 @@
                       </a-col>
                     </a-row>
                   </a-col>
-                  <a-col :span="12">
+                  <a-col :span="16">
                     <a-card title="Poll Admin Settings">
                       <h2>Question</h2>
                       <editable-field
@@ -44,11 +44,7 @@
                     </a-card>
                     <a-card>
                       <h2>Options</h2>
-                      <editable-field
-                        fieldName="options"
-                        :text="'options go here'"
-                        @update="dispatchPollUpdate"
-                      />
+                      <editable-poll-options/>
                     </a-card>
                   </a-col>
                 </a-row>
@@ -67,12 +63,14 @@ import { mapState } from 'vuex'
 import superagent from 'superagent'
 import EditableField from '~/components/EditableField'
 import AdminSideMenu from '~/components/AdminSideMenu'
+import EditablePollOptions from '~/components/EditablePollOptions'
 
 export default {
   layout: 'wider-content',
   components: {
     EditableField,
-    AdminSideMenu
+    AdminSideMenu,
+    EditablePollOptions
   },
   data() {
     return {
