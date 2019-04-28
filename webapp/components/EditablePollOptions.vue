@@ -82,7 +82,7 @@ export default {
       const { count, dataSource } = this
       const newData = {
         key: count,
-        pollOption: `New Option ${count}`
+        pollOption: `New Option ${count + 1}`
       }
       this.dataSource = [...dataSource, newData]
       this.count = count + 1
