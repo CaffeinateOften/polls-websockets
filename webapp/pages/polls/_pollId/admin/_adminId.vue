@@ -34,11 +34,19 @@
                     </a-row>
                   </a-col>
                   <a-col :span="12">
-                    <a-card>
-                      <h1>Hello, Admin</h1>
+                    <a-card title="Poll Admin Settings">
+                      <h2>Question</h2>
                       <editable-field
                         fieldName="question"
                         :text="poll.question"
+                        @update="dispatchPollUpdate"
+                      />
+                    </a-card>
+                    <a-card>
+                      <h2>Options</h2>
+                      <editable-field
+                        fieldName="options"
+                        :text="'options go here'"
                         @update="dispatchPollUpdate"
                       />
                     </a-card>
