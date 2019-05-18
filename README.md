@@ -29,4 +29,5 @@ Playing w/ websockets and vuex mutations
   - Level 1: Model everything as 'entities', following Normalized relational pattern (Vuex-ORM will help here)
   - Requires more research
     - Level 2: Model normalized "entities" like above, but have separate "UI" section for just the subset of data that is coupled to the presentation layer of things (View models are subset of data entities, or unique merging of two entities, and are coupled to the actual visual component that the end user sees, however do not represent how particular bits of data will naturally be stored in relation to everything else)
+    - Level 3: Include a 'beingModified' section of state, so intermediate modifications of data can be handled? (Probs just generally wouldn't add this unless there was a specific need for it in the app)
 
