@@ -14,10 +14,10 @@ Playing w/ websockets and vuex mutations
 
 ### Vuex Action vs Mutation Separation Of Concerns (And method naming for specific Vue components)
 - Move all error-handling logic to Actions (outside of Mutations)
-- Decide how specific Actions/Mutations should be?
-- e.g., "dispatchPollUpdate" with payload of { operation: 'addOption', value: 'exampleOption1' }"
-- VS. "addOption" with payload of { pollId: "abcdefh123", adminId: "sefsefsef234", option: 'exampleOption2" }"
-( The second example makes more sense here, but how does this impact the methods that I add to a specific Component?... "dispatchAction..." vs "addOption"... etc )
+- Research: How specific Actions/Mutations should be?
+  - e.g., "dispatchPollUpdate" with payload of { operation: 'addOption', value: 'exampleOption1' }"
+  - VS. "addOption" with payload of { pollId: "abcdefh123", adminId: "sefsefsef234", option: 'exampleOption2" }"
+    ( The second example makes more sense here, but how does this impact the methods that I add to a specific Component?... "dispatchAction..." vs "addOption"... etc )
 
 ### Vuex Store State Schema / Architecture
 - Define consistent pattern for handling various types of entity updates
