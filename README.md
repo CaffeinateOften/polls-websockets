@@ -7,10 +7,9 @@ Playing w/ websockets and vuex mutations
 - Let end-users add, delete, and edit options for a poll (when on admin view)
 
 ### Vuex Client-Server connection
-- Possible Action names sent to client on connection
-- Valid Action payload schemas sent to client on connection
-- Vue plugin used, where attempt to dispatch action is validated against given schema (client-side error should throw before server is even contacted...)
-- Mutations (both valid names AND implementations) served to client upon connection
+- isomorphic js, duh. if gw server and webapp server served from same machine can just export as module and import from client code
+- if deployed separtely, publish to npm and include as dependency
+(nothing needs to be passed over wire)
 
 ### Vuex Action vs Mutation Separation Of Concerns (And method naming for specific Vue components)
 - Move all error-handling logic to Actions (outside of Mutations)
