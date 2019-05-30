@@ -7,7 +7,7 @@ Playing w/ websockets and vuex mutations
 - Let end-users add, delete, and edit options for a poll (when on admin view)
 
 ### Vuex Client-Server connection
-- isomorphic js, duh. if gw server and webapp server served from same machine can just export as module and import from client code
+- isomorphic js: if gw server and webapp server served from same machine can just export as module and import from client code
 - if deployed separtely, publish to npm and include as dependency
 (nothing needs to be passed over wire)
 
